@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production --base-href ./",
     "preview": "ng serve --configuration=production"
   },
   "dependencies": {
@@ -13,10 +13,10 @@
     "@angular/core": "^21.1.0",
     "@angular/compiler": "^21.1.0",
     "@angular/platform-browser": "^21.1.0",
+    "@angular/common": "^21.1.0",
     "@google/genai": "latest",
     "@angular/build": "^21.1.0",
     "@angular/cli": "^21.1.0",
-    "@angular/common": "^21.1.0",
     "@angular/compiler-cli": "^21.1.0",
     "tailwindcss": "latest"
   },
