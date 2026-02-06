@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm install && npx ng build --configuration production",
+  "buildCommand": "ls -la && npx ng build --configuration production && ls -la dist",
   "outputDirectory": "dist",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
