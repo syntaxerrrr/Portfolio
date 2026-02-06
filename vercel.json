@@ -1,0 +1,12 @@
+{
+  "buildCommand": "npm install && npx ng build --configuration production",
+  "outputDirectory": "dist/interactive-developer-portfolio/browser",
+  "installCommand": "npm install --legacy-peer-deps",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
