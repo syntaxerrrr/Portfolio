@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npx ng build --configuration production",
-  "outputDirectory": "./dist",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "installCommand": "npm install --legacy-peer-deps",
   "rewrites": [
     {
