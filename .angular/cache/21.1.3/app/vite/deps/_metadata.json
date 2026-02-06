@@ -1,0 +1,34 @@
+{
+  "hash": "7f402701",
+  "configHash": "9f67f543",
+  "lockfileHash": "6313d346",
+  "browserHash": "0b1d93f8",
+  "optimized": {
+    "@angular/core": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "f112bb43",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "781ba5a5",
+      "needsInterop": false
+    },
+    "@google/genai": {
+      "src": "../../../../../../node_modules/@google/genai/dist/web/index.mjs",
+      "file": "@google_genai.js",
+      "fileHash": "98f371fb",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-NAHROBP2": {
+      "file": "chunk-NAHROBP2.js"
+    },
+    "chunk-GOMI4DH3": {
+      "file": "chunk-GOMI4DH3.js"
+    }
+  }
+}
