@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "ng serve",
-    "build": "ng build --configuration production --base-href ./",
-    "preview": "ng serve --configuration=production"
+    "dev": "npx ng serve",
+    "build": "npx ng build --configuration production --base-href ./",
+    "preview": "npx ng serve --configuration=production"
   },
   "dependencies": {
     "rxjs": "^7.8.2",
@@ -15,12 +15,12 @@
     "@angular/platform-browser": "^21.1.0",
     "@angular/common": "^21.1.0",
     "@google/genai": "latest",
-    "tailwindcss": "latest"
+    "tailwindcss": "latest",
+    "@angular/cli": "^21.1.0",
+    "@angular/build": "^21.1.0",
+    "@angular/compiler-cli": "^21.1.0"
   },
   "devDependencies": {
-    "@angular/build": "^21.1.0",
-    "@angular/cli": "^21.1.0",
-    "@angular/compiler-cli": "^21.1.0",
     "@types/node": "^22.14.0",
     "typescript": "~5.9.0"
   }
