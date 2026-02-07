@@ -3,7 +3,7 @@ import { GoogleGenAI, Chat } from "@google/genai";
 
 // IMPORTANT: This key is automatically provided by the execution environment.
 // Do not hardcode or change this line.
-const API_KEY = "AIzaSyCjc0wb3Ogmgg6BihPR1Zwc_UDNaIUj3qU";
+const API_KEY = "AIzaSyDmiAmD1hGfRqcAaSSaGoHi7AH_1GDbu6o";
 
 @Injectable({ providedIn: "root" })
 export class GeminiService {
