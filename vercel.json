@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx ng build --configuration production",
+  "buildCommand": "npx ng build --configuration production && find . -type d -name 'dist' && ls -R dist 2>/dev/null || ls -R",
   "outputDirectory": "dist",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
