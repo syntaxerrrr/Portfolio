@@ -15,7 +15,7 @@
             "outputPath": "dist",
             "browser": "index.tsx",
             "tsConfig": "tsconfig.json",
-            "assets": ["src/favicon.ico", "src/assets"]
+            "assets": ["src/favicon.ico", "src/assets", "og-image.jpg"]
           },
           "configurations": {
             "production": {
