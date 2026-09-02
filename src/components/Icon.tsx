@@ -5,6 +5,9 @@
  * then becomes usable as `icon: "..."` anywhere in `src/data/`.
  */
 import type { JSX, SVGProps } from "react";
+import type { IconName } from "../types";
+
+export type { IconName };
 
 const PATHS = {
   user: (
@@ -149,9 +152,7 @@ const PATHS = {
       <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
     </>
   ),
-} satisfies Record<string, JSX.Element>;
-
-export type IconName = keyof typeof PATHS;
+} satisfies Record<IconName, JSX.Element>;
 
 interface IconProps extends Omit<SVGProps<SVGSVGElement>, "name"> {
   name: IconName;

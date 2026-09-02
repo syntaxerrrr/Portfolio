@@ -1,4 +1,4 @@
-import type { IconName } from "../components/Icon";
+import type { IconName } from "../types";
 
 /** Everything in the About section. Edit freely — the UI follows this file. */
 export const profile = {
