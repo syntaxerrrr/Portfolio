@@ -97,6 +97,29 @@ error bubble.
 The function also rate-limits to 12 messages/minute per IP so one visitor can't
 burn the free-tier quota.
 
+## Updating the assistant prompt
+
+`api/chat.ts` carries its system instruction as an inlined constant rather than
+importing it from `src/data/assistant.ts`.
+
+This is a Vercel constraint, not a preference. The package is ESM
+(`"type": "module"`), so the compiled function runs under Node's ESM loader,
+which requires explicit file extensions on relative imports — and TypeScript
+emits them extensionless. Any import in a function therefore fails to resolve at
+load. Verified with probes: a zero-import function returned 200 while one
+importing a single sibling file crashed with `FUNCTION_INVOCATION_FAILED`.
+
+After editing `src/data/`, regenerate the constant:
+
+```bash
+npx esbuild src/data/assistant.ts --bundle --format=esm --platform=node --outfile=/tmp/p.mjs
+node --input-type=module -e "import {buildSystemInstruction} from '/tmp/p.mjs'; console.log(JSON.stringify(buildSystemInstruction()))"
+```
+
+and paste the result over `SYSTEM_INSTRUCTION` in `api/chat.ts`. Only the Gemini
+prompt needs this — `src/data/fallback.ts` reads the live data, so the
+browser-side answers stay in sync on their own.
+
 ## Deploying to Vercel
 
 1. Push to `main` — `vercel.json` handles the rest (framework `vite`, output
