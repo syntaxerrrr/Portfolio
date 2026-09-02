@@ -25,7 +25,13 @@ function devApiRoutes(env: Record<string, string>): Plugin {
           const chunks: Buffer[] = [];
           for await (const chunk of req) chunks.push(chunk as Buffer);
 
-          const { default: handler } = await server.ssrLoadModule("/api/chat.ts");
+          const mod = await server.ssrLoadModule("/api/chat.ts");
+          const handler = mod[req.method.toUpperCase()];
+          if (typeof handler !== "function") {
+            res.statusCode = 405;
+            res.end(JSON.stringify({ error: "Method not allowed" }));
+            return;
+          }
 
           const request = new Request(`http://localhost${req.url ?? "/"}`, {
             method: req.method,
@@ -33,7 +39,7 @@ function devApiRoutes(env: Record<string, string>): Plugin {
             body: chunks.length ? Buffer.concat(chunks) : undefined,
           });
 
-          const response: Response = await handler.fetch(request);
+          const response: Response = await handler(request);
 
           res.statusCode = response.status;
           response.headers.forEach((value, key) => res.setHeader(key, value));
