@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Slate ground and teal mark: the same two colours the site is built from. -->
+  <rect width="64" height="64" rx="14" fill="#0f172a"/>
+  <g fill="none" stroke="#5eead4" stroke-width="7"
+     stroke-linecap="round" stroke-linejoin="round">
+    <!-- L -->
+    <path d="M17 19 V45 H27"/>
+    <!-- A -->
+    <path d="M36 45 L44 19 L52 45"/>
+    <path d="M39.5 39 H48.5"/>
+  </g>
+</svg>
