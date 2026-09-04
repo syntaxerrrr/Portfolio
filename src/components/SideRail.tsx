@@ -64,9 +64,17 @@ export function SideRail({
           </button>
         </div>
 
-        <h1 className="rail-name">{profile.name}</h1>
-        <h2 className="rail-role">{profile.role}</h2>
-        <p className="rail-headline">{profile.headline}</p>
+        {/*
+          * The hero above carries the page h1, so the rail is identity and
+          * navigation chrome - plain paragraphs rather than a second heading
+          * tree competing with it.
+          *
+          * profile.headline dropped here: "Full-Stack Systems Specialist" and
+          * profile.role "Mid Software Developer" were saying the same thing
+          * twice, one line apart.
+          */}
+        <p className="rail-name">{profile.name}</p>
+        <p className="rail-role">{profile.role}</p>
         <p className="rail-tagline">{profile.tagline}</p>
 
         <nav className="rail-nav" aria-label="Sections">

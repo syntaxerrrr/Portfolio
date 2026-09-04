@@ -47,7 +47,7 @@ body {
   left: 0;
   width: 100%;
   height: 50%;
-  background-color: #0f172a;
+  background-color: #150a03;
 }
 
 .eye-animation-overlay::before {
@@ -86,21 +86,34 @@ body {
 
 /* --- Color Palette --- */
 :root {
-  /* Slate ground, teal accent. Teal is the ONLY chromatic colour in the
-     palette - everything else is a step on the slate ramp. */
-  --bg: #0f172a;
-  --bg-card: rgba(255, 255, 255, 0.025);
-  --bg-card-hover: rgba(255, 255, 255, 0.055);
-  --bg-header: rgba(15, 23, 42, 0.85);
-  --border: rgba(255, 255, 255, 0.05);
-  --border-hover: rgba(255, 255, 255, 0.1);
-  --text: #e2e8f0;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
-  --accent: #5eead4;
-  --accent-hover: #99f6e4;
-  --accent-glow: rgba(45, 212, 191, 0.16);
-  --accent-subtle: rgba(45, 212, 191, 0.1);
+  /* Cyber Ronin: burnt-orange ground, cream ink, amber accent.
+   *
+   * Cream is the only high-contrast ink here, so separation has to come from
+   * VALUE rather than hue - every warm tone below sits on one orange ramp.
+   * The ground is a deep burnt orange rather than the #C45A18 of the source
+   * art on purpose: cream on #C45A18 measures 3.6:1 and fails AA for body
+   * text, while cream on this clears 7:1 and still reads plainly orange. */
+  --bg: #7a3209;
+  --bg-card: rgba(20, 9, 3, 0.7);
+  --bg-card-hover: rgba(28, 14, 5, 0.8);
+  --bg-header: rgba(20, 9, 3, 0.86);
+  --border: rgba(251, 219, 175, 0.14);
+  --border-hover: rgba(251, 219, 175, 0.3);
+  --text: #fbdbaf;
+  --text-muted: rgba(251, 219, 175, 0.74);
+  --text-dim: rgba(251, 219, 175, 0.7);
+  --accent: #f5a94f;
+  --accent-hover: #ffd09b;
+  --accent-glow: rgba(245, 169, 79, 0.22);
+  --accent-subtle: rgba(245, 169, 79, 0.12);
+  /* Amber is a LIGHT fill, so ink laid on it must be dark, not white. */
+  --on-accent: #2a1204;
+  --glow: rgba(245, 169, 79, 0.55);
+  --glow-soft: rgba(224, 112, 32, 0.28);
+
+  /* Condensed against Inter's normal width is an unmistakable pairing, and
+     Saira's squared skeleton reads technical without tipping into costume. */
+  --font-display: "Saira Condensed", "Arial Narrow", sans-serif;
 
   /* Type scale */
   --tracking-tight: -0.025em;
@@ -117,10 +130,19 @@ body {
   flex-direction: column;
   position: relative;
   z-index: 1;
-  background-color: var(--bg);
+  /* Transparent so the fixed backdrop plates behind it show through. body
+     still paints --bg, which is what the overscroll area shows. Themes that
+     run without a backdrop put their own ground back, just below. */
+  background-color: transparent;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
+}
+
+/* Light and flashlight hide the photo, so they need an opaque ground again. */
+.portfolio.light-theme,
+.portfolio.flashlight-theme {
+  background-color: var(--bg);
 }
 
 /* ===========================
@@ -130,27 +152,25 @@ body {
 :root.flashlight-theme,
 .portfolio.light-theme,
 .portfolio.flashlight-theme {
-  --bg: #f8fafc;
-  --bg-card: rgba(15, 23, 42, 0.025);
-  --bg-card-hover: rgba(15, 23, 42, 0.05);
-  --bg-header: rgba(248, 250, 252, 0.85);
-  --border: rgba(15, 23, 42, 0.08);
-  --border-hover: rgba(15, 23, 42, 0.14);
-  --text: #0f172a;
-  --text-muted: #475569;
-  --text-dim: #64748b;
-  /* Teal-300 is unreadable on white - drop to teal-700 for contrast. */
-  --accent: #0f766e;
-  --accent-hover: #115e59;
-  --accent-glow: rgba(15, 118, 110, 0.14);
-  --accent-subtle: rgba(15, 118, 110, 0.09);
+  --bg: #fbf1e2;
+  --bg-card: rgba(74, 30, 6, 0.04);
+  --bg-card-hover: rgba(74, 30, 6, 0.08);
+  --bg-header: rgba(251, 241, 226, 0.86);
+  --border: rgba(74, 30, 6, 0.12);
+  --border-hover: rgba(74, 30, 6, 0.22);
+  --text: #3a1806;
+  --text-muted: #7a4a28;
+  --text-dim: #8a5a34;
+  /* Amber is unreadable on cream - drop to a deep burnt orange for contrast. */
+  --accent: #a8420a;
+  --accent-hover: #8a3408;
+  --accent-glow: rgba(168, 66, 10, 0.16);
+  --accent-subtle: rgba(168, 66, 10, 0.1);
+  --on-accent: #fff6ea;
+  --glow: rgba(168, 66, 10, 0.4);
+  --glow-soft: rgba(168, 66, 10, 0.2);
 }
 
-.light-theme .project-tags span,
-.flashlight-theme .project-tags span {
-  background: rgba(0, 0, 0, 0.04);
-  color: var(--text-muted);
-}
 .light-theme .chat-close-btn:hover,
 .flashlight-theme .chat-close-btn:hover {
   background-color: rgba(0, 0, 0, 0.05);
@@ -222,8 +242,8 @@ body {
   border-radius: 50%;
   background: var(--accent-hover);
   box-shadow:
-    0 0 12px 4px rgba(94, 234, 212, 0.6),
-    0 0 24px 8px rgba(45, 212, 191, 0.25);
+    0 0 12px 4px var(--glow),
+    0 0 24px 8px var(--glow-soft);
 }
 
 /* ===========================
@@ -254,7 +274,7 @@ body {
   object-fit: cover;
   border: 3px solid var(--accent);
   box-shadow:
-    0 0 40px rgba(45, 212, 191, 0.4),
+    0 0 40px var(--glow),
     0 0 80px var(--accent-glow);
   cursor: default;
   animation: zoomIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -321,7 +341,9 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 28px 24px;
-  transition: all 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease;
 }
 
 .about-card:hover {
@@ -359,16 +381,21 @@ body {
    =========================== */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
   gap: 16px;
 }
 
 .project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 28px 24px;
-  transition: all 0.25s ease;
+  padding: 26px 24px 20px;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease;
 }
 
 .project-card:hover {
@@ -376,60 +403,47 @@ body {
   background: var(--bg-card-hover);
 }
 
-.project-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.project-icon {
-  width: 44px;
-  height: 44px;
-  background: var(--accent-subtle);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
-}
-
-.project-type {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
-}
-
-.project-card h3 {
-  font-size: 1.1rem;
+/* The payoff leads - it is the argument the card exists to make. */
+.project-outcome {
+  font-family: var(--font-display);
   font-weight: 700;
-  color: var(--text);
-  margin-bottom: 8px;
+  font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+  line-height: 1.1;
+  color: var(--accent);
+  text-wrap: balance;
+  margin: 0;
 }
 
-.project-card p {
+/* The title names the subject under that claim, so it steps down rather than
+   competing with it. */
+.project-card h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+  margin: 0;
+}
+
+.project-desc {
   font-size: 0.88rem;
   color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 16px;
+  line-height: 1.62;
+  margin: 0;
+  /* Pushes the stack down so the hairline lands level across a row of cards
+     whose prose runs to different lengths. */
+  flex: 1;
 }
 
-.project-tags {
+/* The rule earns its place: it separates the claim from the machinery. */
+.project-stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-}
-
-.project-tags span {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--accent);
-  background: var(--accent-subtle);
-  padding: 5px 12px;
-  border-radius: var(--radius-pill);
-  border: none;
+  gap: 6px 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-dim);
 }
 
 /* ===========================
@@ -463,7 +477,9 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
-  transition: all 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease;
 }
 
 .tech-card:hover {
@@ -574,29 +590,29 @@ body {
   width: 60px;
   height: 60px;
   background: linear-gradient(135deg, var(--accent), var(--accent));
-  color: white;
+  color: var(--on-accent);
   border-radius: 50%;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(45, 212, 191, 0.3);
+  box-shadow: 0 8px 24px var(--glow-soft);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
 }
 .chat-fab:hover {
   transform: scale(1.1);
-  box-shadow: 0 12px 32px rgba(45, 212, 191, 0.4);
+  box-shadow: 0 12px 32px var(--glow);
   animation: none;
 }
 @keyframes pulse {
   0%,
   100% {
-    box-shadow: 0 8px 24px rgba(45, 212, 191, 0.3);
+    box-shadow: 0 8px 24px var(--glow-soft);
   }
   50% {
-    box-shadow: 0 8px 24px rgba(94, 234, 212, 0.4);
+    box-shadow: 0 8px 24px var(--glow);
   }
 }
 
@@ -736,7 +752,7 @@ body {
 }
 .chat-message.user p {
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
   border-bottom-right-radius: 4px;
 }
 
@@ -826,7 +842,7 @@ body {
   height: 42px;
   border: none;
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
   border-radius: 10px;
   cursor: pointer;
   display: flex;
@@ -996,20 +1012,23 @@ body {
   background: var(--accent-subtle);
 }
 
+/* The hero states the name at full size. Repeating it here at 3rem made the
+   page say the same thing twice inside one scroll, so this is the anchor for
+   the navigation rather than a second headline. */
 .rail-name {
-  font-size: clamp(2.5rem, 5vw, 3rem);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
   font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
   color: var(--text);
   margin: 0;
 }
 
 .rail-role {
-  font-size: 1.125rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  color: var(--text);
-  margin: 12px 0 0;
+  color: var(--text-muted);
+  margin: 6px 0 0;
   letter-spacing: -0.01em;
 }
 
@@ -1109,6 +1128,7 @@ body {
 .section {
   margin-bottom: 96px;
   scroll-margin-top: 88px;
+  overflow-x: clip;
 }
 
 .section:last-of-type {
@@ -1192,21 +1212,6 @@ body {
    RESUME DETAIL
    =========================== */
 
-/* The measurable outcome, pulled out so it reads before the prose does. */
-.project-impact {
-  margin: 12px 0 0;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--accent);
-  display: flex;
-  gap: 8px;
-}
-
-.project-impact::before {
-  content: "↗";
-  flex-shrink: 0;
-}
-
 .about-facts {
   margin: 32px 0 0;
   display: flex;
@@ -1231,13 +1236,6 @@ body {
   margin: 0;
   font-size: 0.9rem;
   color: var(--text-muted);
-}
-
-.rail-headline {
-  margin: 4px 0 0;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--accent);
 }
 
 /*
@@ -1270,4 +1268,296 @@ body {
 
 .resume-link:hover .resume-link-arrow {
   transform: translate(3px, -3px);
+}
+
+/* ===========================
+   RONIN BACKDROP
+   ===========================
+ * Two fixed plates behind the whole document.
+ *
+ * The base plate carries the heavy scrim - it is the thing that makes cream
+ * ink survive over photography, and the orange bloom behind the subject's head
+ * is the brightest area in the frame, so the scrim cannot be gentle. The
+ * reveal plate carries a lighter one and is masked to a soft disc tracking the
+ * pointer, which is what makes the armoured frame read as a genuinely
+ * different image instead of the same picture with the lights turned down.
+ *
+ * Both are fixed: the page is several thousand pixels tall, and stretching one
+ * image down all of it would only crop the subject out of frame.
+ */
+.ronin-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -4;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/*
+ * Light and flashlight run on a flat ground. Dark ink over a dark photo is
+ * unreadable, and flashlight already spends the pointer on its own effect -
+ * two spotlights fighting over one cursor reads as a bug, not a feature.
+ */
+.portfolio.light-theme .ronin-backdrop,
+.portfolio.flashlight-theme .ronin-backdrop {
+  display: none;
+}
+
+.ronin-layer {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  /* Right-anchored: the subject sits centre-right in both plates, so this
+     drops the empty gradient third under the rail rather than under prose. */
+  background-position: right center;
+  background-size: cover;
+}
+
+.ronin-layer.is-base {
+  background-image:
+    linear-gradient(
+      100deg,
+      rgba(18, 8, 2, 0.94) 0%,
+      rgba(18, 8, 2, 0.88) 42%,
+      rgba(18, 8, 2, 0.72) 72%,
+      rgba(18, 8, 2, 0.6) 100%
+    ),
+    url("/hero-base.webp");
+  animation: ronin-settle 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.ronin-layer.is-reveal {
+  --ronin-r: 260px;
+  --ronin-x: var(--mouse-x, -999px);
+  --ronin-y: var(--mouse-y, -999px);
+  background-image:
+    linear-gradient(
+      100deg,
+      rgba(18, 8, 2, 0.8) 0%,
+      rgba(18, 8, 2, 0.66) 42%,
+      rgba(18, 8, 2, 0.44) 72%,
+      rgba(18, 8, 2, 0.32) 100%
+    ),
+    url("/hero-reveal.webp");
+  /* Feathered hard, so the edge of the disc never reads as a circle. */
+  -webkit-mask-image: radial-gradient(
+    circle var(--ronin-r) at var(--ronin-x) var(--ronin-y),
+    #fff 0%,
+    #fff 40%,
+    rgba(255, 255, 255, 0.75) 60%,
+    rgba(255, 255, 255, 0.4) 75%,
+    rgba(255, 255, 255, 0.12) 88%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--ronin-r) at var(--ronin-x) var(--ronin-y),
+    #fff 0%,
+    #fff 40%,
+    rgba(255, 255, 255, 0.75) 60%,
+    rgba(255, 255, 255, 0.4) 75%,
+    rgba(255, 255, 255, 0.12) 88%,
+    transparent 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+@keyframes ronin-settle {
+  from {
+    opacity: 0;
+    transform: scale(1.18);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 700px) {
+  /*
+   * A tall viewport makes `cover` scale by height, so a right anchor would
+   * crop the subject clean out of frame and leave only sword tips. Pull the
+   * framing back toward the middle of the plate.
+   */
+  .ronin-layer {
+    background-position: 58% center;
+  }
+
+  .ronin-layer.is-reveal {
+    --ronin-r: 160px;
+    /* No cursor to follow, so the fallback doubles as a resting position:
+       the disc parks over the subject until a touch moves it. */
+    --ronin-x: var(--mouse-x, 56%);
+    --ronin-y: var(--mouse-y, 32%);
+  }
+}
+
+@media (max-width: 480px) {
+  .ronin-layer.is-reveal {
+    --ronin-r: 120px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ronin-layer.is-base {
+    animation: none;
+  }
+}
+
+/* ===========================
+   HERO
+   ===========================
+ * Full-bleed above the shell, so the claim lands before the rail and the
+ * sections begin. Sized by min-height rather than a hard 100vh: an opener that
+ * exactly fills the viewport reads as though it were the entire page, and the
+ * work below has to break the fold to invite the scroll.
+ *
+ * No plates of its own - the fixed backdrop already covers the document, which
+ * keeps one cursor reveal running across every section.
+ */
+.hero-intro {
+  position: relative;
+  z-index: 1;
+  min-height: 82vh;
+  display: flex;
+  align-items: center;
+  padding: 96px 0 72px;
+}
+
+/* Mirrors .shell, so the claim lines up with the rail's left edge below it. */
+.hero-intro-inner {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hero-claim {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.3rem, 5.6vw, 4.4rem);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  color: var(--text);
+  /* Capped in em so the measure holds as the clamp scales the type. */
+  max-width: 12em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.hero-sub {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 34ch;
+  margin: 22px 0 0;
+}
+
+@media (max-width: 1024px) {
+  .hero-intro {
+    min-height: 76vh;
+    padding: 80px 0 56px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-intro {
+    min-height: 70vh;
+    padding: 64px 0 48px;
+  }
+
+  .hero-claim {
+    font-size: clamp(1.9rem, 8.5vw, 2.6rem);
+    max-width: 100%;
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+}
+
+/* ===========================
+   SCROLL ASSEMBLY
+   ===========================
+ * Card parts arrive from outside the layout and converge as the card travels
+ * up the viewport. useScrollAssembly writes --p per card, 0 (scattered) to
+ * 1 (formed); everything below is derived from it.
+ *
+ * --p rests at 1. That is deliberate: a card parked at 0 with no JS to advance
+ * it would never appear, so the readable state is the one that survives when
+ * the hook does not run - no JS, an error, or reduced motion.
+ */
+.project-card,
+.about-card,
+.tech-card {
+  --p: 1;
+}
+
+/*
+ * Projects and About assemble piece by piece - each card holds three or four
+ * parts with enough weight to read as separate arrivals.
+ *
+ * Distances are in vw so the parts start beyond the grid on any screen, and
+ * opacity finishes early (by --p 0.45) so the travel itself is visible rather
+ * than the pieces fading in already home.
+ */
+.project-card > *,
+.about-card > * {
+  transform: translate(
+    calc(var(--dx, 0px) * (1 - var(--p))),
+    calc(var(--dy, 0px) * (1 - var(--p)))
+  );
+  opacity: min(1, calc(var(--p) * 2.2));
+}
+
+.project-card > *:nth-child(1),
+.about-card > *:nth-child(1) {
+  --dx: -46vw;
+  --dy: 10px;
+}
+
+.project-card > *:nth-child(2),
+.about-card > *:nth-child(2) {
+  --dx: 42vw;
+  --dy: -8px;
+}
+
+.project-card > *:nth-child(3),
+.about-card > *:nth-child(3) {
+  --dx: -34vw;
+  --dy: 24px;
+}
+
+.project-card > *:nth-child(4),
+.about-card > *:nth-child(4) {
+  --dx: 38vw;
+  --dy: 14px;
+}
+
+/*
+ * Twenty small tech cards taking themselves apart would read as noise rather
+ * than assembly, so these gather whole - the same arrival, one level up in
+ * granularity. Alternating sides makes the grid knit together as it forms.
+ */
+.tech-card {
+  transform: translate(calc(var(--tx) * (1 - var(--p))), 0);
+  opacity: min(1, calc(var(--p) * 2.2));
+}
+
+.tech-grid > .tech-card:nth-child(odd) {
+  --tx: -32vw;
+}
+
+.tech-grid > .tech-card:nth-child(even) {
+  --tx: 32vw;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card > *,
+  .about-card > *,
+  .tech-card {
+    transform: none;
+    opacity: 1;
+  }
 }

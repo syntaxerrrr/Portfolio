@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Slate ground and teal mark: the same two colours the site is built from. -->
-  <rect width="64" height="64" rx="14" fill="#0f172a"/>
-  <g fill="none" stroke="#5eead4" stroke-width="7"
+  <!-- Burnt-orange ground and cream mark: the same two colours the site is
+       built from. Cream rather than the amber accent because at 16px in a tab
+       strip the mark needs every bit of separation it can get - cream clears
+       7:1 on this ground, amber only 4.7:1. -->
+  <rect width="64" height="64" rx="14" fill="#7a3209"/>
+  <g fill="none" stroke="#fbdbaf" stroke-width="7"
      stroke-linecap="round" stroke-linejoin="round">
     <!-- L -->
     <path d="M17 19 V45 H27"/>

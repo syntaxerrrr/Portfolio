@@ -44,8 +44,8 @@ export const projects: Project[] = [
     type: "Systems · Java",
     title: "Computerized Library Management System",
     description:
-      "The institution's first fully functional library system, engineered from the ground up on Java OOP principles. Automated book cataloging, circulation tracking, fine management and borrowing records.",
-    impact: "Digitized records for 2,000+ students and faculty; ~60% faster checkout",
+      "The institution's first fully functional library system, engineered from the ground up on Java OOP principles. Automated book cataloging, circulation tracking, fine management and borrowing records, cutting checkout time by ~60%.",
+    impact: "Digitized library records for 2,000+ students and faculty",
     tags: ["Java", "OOP", "Systems Design"],
   },
   {
@@ -53,8 +53,8 @@ export const projects: Project[] = [
     type: "Client Work",
     title: "Responsive Websites for International Clients",
     description:
-      "Designed, built and launched 10+ custom responsive sites — including Glocom.org, Jvillalobosart.com and Findweedhere.com — with cross-browser UI/UX and load-time tuning.",
-    impact: "~35% more site engagement; ~25% higher Google PageSpeed scores",
+      "Designed, built and launched 10+ custom responsive sites — including Glocom.org, Jvillalobosart.com and Findweedhere.com — with cross-browser UI/UX and load-time tuning that lifted Google PageSpeed scores by ~25%.",
+    impact: "~35% more engagement across 10+ client sites",
     tags: ["WordPress", "Divi Builder", "UI/UX", "SEO"],
   },
 ];

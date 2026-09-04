@@ -1,7 +1,11 @@
 import { projects } from "../data/projects";
-import { Icon } from "./Icon";
 import { SectionHeading } from "./SectionHeading";
 
+/**
+ * Each card leads with the outcome, because that is the argument. The title
+ * names the subject underneath it, the description explains how, and a
+ * hairline separates the claim from the machinery that produced it.
+ */
 export function ProjectsSection() {
   return (
     <section id="projects" className="section" aria-label="Projects">
@@ -10,20 +14,19 @@ export function ProjectsSection() {
       <div className="projects-grid">
         {projects.map((project) => (
           <article className="project-card" key={project.title}>
-            <div className="project-header">
-              <div className="project-icon">
-                <Icon name={project.icon} />
-              </div>
-              <span className="project-type">{project.type}</span>
-            </div>
+            {project.impact && (
+              <p className="project-outcome">{project.impact}</p>
+            )}
+
             <h3>{project.title}</h3>
-            <p>{project.description}</p>
-            {project.impact && <p className="project-impact">{project.impact}</p>}
-            <div className="project-tags">
+
+            <p className="project-desc">{project.description}</p>
+
+            <p className="project-stack">
               {project.tags.map((tag) => (
                 <span key={tag}>{tag}</span>
               ))}
-            </div>
+            </p>
           </article>
         ))}
       </div>

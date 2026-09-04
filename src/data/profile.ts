@@ -14,6 +14,10 @@ export const profile = {
   summary:
     "Results-driven Mid Software Developer with 3+ years in full-stack web and systems development. I specialize in architecting enterprise solutions with ASP.NET Zero and ASP.NET Core MVC/API, applying OOP and SOLID principles across PostgreSQL and MS SQL Server environments.",
   experience: "3+ years",
+  /* The opening claim, in the client's own words. */
+  heroClaim: "I build enterprise systems for employees.",
+  heroSub:
+    "Enterprise .NET and Angular. Three years, five production platforms.",
   specialty:
     "Architecting enterprise systems and tuning the data layer underneath them.",
   education: "BS Information Systems — GenSantos Foundation College, 2023",
